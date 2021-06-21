@@ -1,17 +1,27 @@
-import { Box, Button, Heading, Spacer, Stack } from '@chakra-ui/react';
+import { Box, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { createRoutePath, ROUTE } from '../common/route';
 import { GetQuizzes_quizzes } from '../types/globalTypes';
 
-export const QuizCard = ({ id, name }: GetQuizzes_quizzes) => {
+export const QuizCard = ({ name, questions }: GetQuizzes_quizzes) => {
   return (
     <Box p={4} bg="white" shadow="xs">
       <Stack spacing="4">
-        <Heading as="h3" size="md">
+        <Heading as="h3" fontSize="lg">
           {name}
         </Heading>
-        <Stack direction="row">
+        <Stack direction="row" alignItems="center">
+          <Text>{questions.length} Questions</Text>
           <Spacer />
-          <Button colorScheme="teal" variant="solid">
+          <Button
+            as={Link}
+            to={createRoutePath(ROUTE.QUESTION, {
+              questionId: questions[0].id,
+            })}
+            colorScheme="teal"
+            variant="solid"
+          >
             Start
           </Button>
         </Stack>

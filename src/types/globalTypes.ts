@@ -7,10 +7,19 @@
 // GraphQL query operation: GetQuizzes
 // ====================================================
 
+export interface GetQuizzes_quizzes_questions {
+  __typename: 'questions';
+  id: any;
+}
+
 export interface GetQuizzes_quizzes {
   __typename: 'quizzes';
   id: any;
   name: string;
+  /**
+   * An array relationship
+   */
+  questions: GetQuizzes_quizzes_questions[];
 }
 
 export interface GetQuizzes {

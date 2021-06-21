@@ -6,6 +6,9 @@ const GET_QUIZZES = gql`
     quizzes {
       id
       name
+      questions {
+        id
+      }
     }
   }
 `;
