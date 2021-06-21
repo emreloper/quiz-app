@@ -1,9 +1,11 @@
 export enum ROUTE {
   DASHBOARD = '/',
-  QUESTION = '/:questionId/',
+  QUESTION = '/:quizId/:questionNo/',
 }
 
-type Args = [ROUTE.DASHBOARD] | [ROUTE.QUESTION, { questionId: string }];
+type Args =
+  | [ROUTE.DASHBOARD]
+  | [ROUTE.QUESTION, { quizId: string; questionNo: number }];
 
 export function createRoutePath(...args: Args) {
   const [path, params] = args;

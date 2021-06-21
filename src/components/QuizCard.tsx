@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { createRoutePath, ROUTE } from '../common/route';
 import { GetQuizzes_quizzes } from '../types/globalTypes';
 
-export const QuizCard = ({ name, questions }: GetQuizzes_quizzes) => {
+export const QuizCard = ({ id, name, questions }: GetQuizzes_quizzes) => {
   return (
     <Box p={4} bg="white" shadow="xs">
       <Stack spacing="4">
@@ -17,7 +17,8 @@ export const QuizCard = ({ name, questions }: GetQuizzes_quizzes) => {
           <Button
             as={Link}
             to={createRoutePath(ROUTE.QUESTION, {
-              questionId: questions[0].id,
+              quizId: id,
+              questionNo: 1,
             })}
             colorScheme="teal"
             variant="solid"
