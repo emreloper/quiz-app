@@ -10,9 +10,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { setAnswer } from '../common/answer-store';
 import { createRoutePath, ROUTE } from '../common/route';
-import { UseGetQuestionsByQuizId } from '../graphql/useGetQuestionsQuizById';
+import { useGetAnswerByQuestionId } from '../graphql/useGetAnswerByQuestionId';
+import { useGetQuestionsByQuizId } from '../graphql/useGetQuestionsQuizById';
+import { ScreenLoading } from './ScreenLoading';
 
 interface QuestionContentProps {
   quizId: string;
@@ -23,12 +26,17 @@ export const QuestionContent = ({
   quizId,
   questionNo,
 }: QuestionContentProps) => {
-  const { data } = UseGetQuestionsByQuizId(quizId);
+  const { data, loading } = useGetQuestionsByQuizId(quizId);
   const quiz = data?.quizzes[0];
   const question = quiz?.questions[questionNo - 1];
   const options = question?.options.split(',');
   const isFirstQuestion = questionNo === 1;
   const isLastQuestion = questionNo === quiz?.questions.length;
+  const answer = useGetAnswerByQuestionId(question?.id);
+
+  if (loading) return <ScreenLoading />;
+
+  if (typeof question === 'undefined') return <Navigate to="/not-found/" />;
 
   return (
     <Container>
@@ -36,10 +44,19 @@ export const QuestionContent = ({
       <Spacer h={6} />
       <Text fontSize="lg">{question?.text}</Text>
       <Spacer h={6} />
-      <RadioGroup>
+      <RadioGroup
+        value={answer?.option}
+        onChange={(selected) => {
+          setAnswer({
+            quizId: question?.quiz_id,
+            questionId: question?.id,
+            option: selected,
+          });
+        }}
+      >
         <Stack spacing={2}>
           {options?.map((option) => (
-            <Box bg="white" px={3} py={2}>
+            <Box key={option} bg="white" px={3} py={2}>
               <Radio colorScheme="teal" value={option}>
                 {option}
               </Radio>

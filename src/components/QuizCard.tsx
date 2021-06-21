@@ -2,9 +2,12 @@ import { Box, Button, Heading, Spacer, Stack, Text } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { createRoutePath, ROUTE } from '../common/route';
+import { useGetAnswersByQuizId } from '../graphql/useGetAnswersByQuizId';
 import { GetQuizzes_quizzes } from '../types/globalTypes';
 
 export const QuizCard = ({ id, name, questions }: GetQuizzes_quizzes) => {
+  const answers = useGetAnswersByQuizId(id);
+
   return (
     <Box p={4} bg="white" shadow="xs">
       <Stack spacing="4">

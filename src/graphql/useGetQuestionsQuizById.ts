@@ -20,7 +20,7 @@ const GET_QUESTIONS_BY_QUIZ_ID = gql`
   }
 `;
 
-export const UseGetQuestionsByQuizId = (id: string) => {
+export const useGetQuestionsByQuizId = (id: string) => {
   return useQuery<GetQuestionsByQuizId, GetQuestionsByQuizIdVariables>(
     GET_QUESTIONS_BY_QUIZ_ID,
     { variables: { id } }
