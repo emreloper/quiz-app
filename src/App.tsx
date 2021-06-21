@@ -1,5 +1,7 @@
 import React from 'react';
+import { useGetQuizzes } from './graphql/useGetQuizzes';
 
 export const App = () => {
-  return <div>App</div>;
+  const { data } = useGetQuizzes();
+  return <div>{JSON.stringify(data)}</div>;
 };
