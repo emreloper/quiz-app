@@ -49,6 +49,7 @@ export interface GetQuestionsByQuizIdVariables {
 export interface GetQuizzes_quizzes_questions {
   __typename: 'questions';
   id: any;
+  answer: string;
 }
 
 export interface GetQuizzes_quizzes {

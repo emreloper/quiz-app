@@ -7,6 +7,18 @@ import { GetQuizzes_quizzes } from '../types/globalTypes';
 
 export const QuizCard = ({ id, name, questions }: GetQuizzes_quizzes) => {
   const answers = useGetAnswersByQuizId(id);
+  const correctAnswers = React.useMemo(() => {
+    const correctOptions = questions.map(({ answer }) => answer);
+    const selectedOptions = answers.map(({ option }) => option);
+
+    return selectedOptions.reduce<string[]>((result, option) => {
+      if (correctOptions.includes(option)) {
+        result.push(option);
+      }
+
+      return result;
+    }, []);
+  }, [questions, answers]);
 
   return (
     <Box p={4} bg="white" shadow="xs">
@@ -15,7 +27,11 @@ export const QuizCard = ({ id, name, questions }: GetQuizzes_quizzes) => {
           {name}
         </Heading>
         <Stack direction="row" alignItems="center">
-          <Text>{questions.length} Questions</Text>
+          <Text>
+            {answers.length === 0
+              ? `${questions.length} Questions`
+              : `Score: ${correctAnswers.length}/${questions.length}`}
+          </Text>
           <Spacer />
           <Button
             as={Link}
