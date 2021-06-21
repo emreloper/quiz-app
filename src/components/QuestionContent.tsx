@@ -39,6 +39,9 @@ export const QuestionContent = ({
 
   if (typeof question === 'undefined') return <Navigate to="/not-found/" />;
 
+  if (questionNo < 1 || questionNo > (quiz?.questions?.length ?? 0))
+    return <Navigate to="/not-found/" />;
+
   return (
     <>
       <Helmet>
