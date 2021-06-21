@@ -4,7 +4,7 @@ import {
   GetQuestionsByQuizIdVariables,
 } from '../types/globalTypes';
 
-const GET_QUESTIONS_BY_QUIZ_ID = gql`
+export const GET_QUESTIONS_BY_QUIZ_ID = gql`
   query GetQuestionsByQuizId($id: uuid!) {
     quizzes(where: { id: { _eq: $id } }) {
       id
