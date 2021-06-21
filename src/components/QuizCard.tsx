@@ -42,7 +42,7 @@ export const QuizCard = ({ id, name, questions }: GetQuizzes_quizzes) => {
             colorScheme="teal"
             variant="solid"
           >
-            Start
+            {answers.length === 0 ? 'Start' : 'Restart'}
           </Button>
         </Stack>
       </Stack>
