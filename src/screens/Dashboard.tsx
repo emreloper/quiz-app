@@ -1,7 +1,8 @@
 import React from 'react';
+import { QuizGrid } from '../components/QuizGrid';
 
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+  return <QuizGrid />;
 };
 
 export default Dashboard;
