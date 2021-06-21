@@ -1,7 +1,17 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
-import { useGetQuizzes } from './graphql/useGetQuizzes';
+import { AppShell } from './components/AppShell';
+
+const Dashboard = React.lazy(() => import('./screens/Dashboard'));
 
 export const App = () => {
-  const { data } = useGetQuizzes();
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <ChakraProvider>
+      <AppShell>
+        <React.Suspense fallback="Loading...">
+          <Dashboard />
+        </React.Suspense>
+      </AppShell>
+    </ChakraProvider>
+  );
 };
